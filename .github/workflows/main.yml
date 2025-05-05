@@ -1,15 +1,17 @@
-name: Check Melon Tickets
+name: Melon Ticket Monitor  # 随便起个名字
 on:
   schedule:
-    - cron: '*/5 * * * *'  # 每5分钟检查一次
+    - cron: '*/5 * * * *'   # 每5分钟检查一次（改为*/30更安全）
 jobs:
-  check:
+  monitor:
     runs-on: ubuntu-latest
     steps:
       - name: Check Tickets
         uses: mooyoul/melon-ticket-actions@v1.1.0
         with:
-          product-id: ${{ secrets.PRODUCT_ID }}
-          schedule-id: ${{ secrets.SCHEDULE_ID }}
+          product-id: 211212   # 必须替换成你的目标活动ID！
+          schedule-id: 100001  # 必须替换成你的场次ID！
+          seat-id: A        # 必须替换成你的座位区ID！
+          # 以下Slack通知设置可选（不用可删除）
           slack-incoming-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          message: '티켓이 나왔어요! <@你的Slack用户ID>'
+          message: '票务有更新！快去查看！'
