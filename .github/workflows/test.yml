@@ -1,0 +1,15 @@
+name: Check Melon Tickets
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # 每5分钟检查一次
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Tickets
+        uses: mooyoul/melon-ticket-actions@v1.1.0
+        with:
+          product-id: ${{ secrets.PRODUCT_ID }}
+          schedule-id: ${{ secrets.SCHEDULE_ID }}
+          slack-incoming-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          message: '티켓이 나왔어요! <@你的Slack用户ID>'
